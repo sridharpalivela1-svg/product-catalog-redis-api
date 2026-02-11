@@ -1,11 +1,12 @@
 from fastapi import FastAPI
 from app.core.database import engine, Base
-from app.models import product
+from app.api.routes import router
 
 app = FastAPI(title="Product Catalog API")
 
-# Create tables automatically
 Base.metadata.create_all(bind=engine)
+
+app.include_router(router)
 
 
 @app.get("/")
